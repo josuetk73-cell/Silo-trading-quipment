@@ -1,0 +1,52 @@
+# Administration SILOE TRADING EQUIPMENT
+
+## Ce qui est disponible
+
+Le site reste une vitrine d’entreprise : présentation, services et équipements, prix informatifs, photos et demandes de devis WhatsApp/e-mail. Il ne comprend ni paiement en ligne, ni panier, ni suivi de stock ou de commandes. Les formulaires préparent un message que le visiteur confirme dans son application.
+
+Decap CMS 3.17.1 ajoute une administration à `/admin/`. Connexion avec le compte GitHub et ses protections (mot de passe et, idéalement, double authentification). Aucun mot de passe administrateur n’est défini dans le code. La page de connexion est publique ; lire les contenus du site est public, mais l’écriture et les téléversements sont réservés aux comptes ayant les droits GitHub sur le dépôt. `open_authoring` est désactivé : les visiteurs ne peuvent pas proposer des modifications par ce mécanisme. Ne pas activer d’accès anonyme ni de backend local en production.
+
+Chaque enregistrement de contenu publié et chaque téléversement est conservé dans un commit GitHub. Netlify reconstruit ensuite le site depuis `main`. Une modification ne devient visible qu’après la réussite de ce déploiement, généralement après un délai de construction. Une erreur de construction conserve normalement le dernier déploiement réussi. Il faut que Netlify soit relié au dépôt GitHub ; le déploiement manuel d’un ZIP seul ne suffit pas.
+
+## Activation initiale — action du propriétaire requise
+
+Le domaine indiqué par le propriétaire est `https://siloetradingequipment.netlify.app` (le double h initial a été corrigé). Son accès depuis l’environnement Codex est bloqué par le proxy réseau : la disponibilité publique n’a donc pas été confirmée. Vérifier l’adresse dans le navigateur et dans Netlify avant de configurer OAuth.
+
+1. Dans le projet Netlify, vérifier que le dépôt connecté est `josuetk73-cell/Silo-trading-quipment`, la branche `main`, la commande `npm run build`, et le dossier publié `dist`. Si nécessaire, relier ce dépôt dans la configuration de construction/déploiement.
+2. Dans GitHub, ouvrir **Settings → Developer settings → OAuth Apps → New OAuth App** : https://github.com/settings/applications/new . Cette opération est distincte de l’application GitHub utilisée pour les déploiements Netlify.
+3. Nom de l’application : `Administration SILOE TRADING EQUIPMENT`.
+4. Homepage URL : l’URL HTTPS exacte de votre site. Pour l’adresse communiquée : `https://siloetradingequipment.netlify.app`.
+5. Authorization callback URL : `https://api.netlify.com/auth/done`.
+6. Enregistrer l’application, noter le **Client ID**, puis générer un **Client secret**. Ne jamais partager le secret en chat, le mettre dans GitHub, dans `src/company.json` ou dans le navigateur du site public.
+7. Dans le projet Netlify, ouvrir **Project configuration → Access & security → OAuth → Authentication providers** (les libellés peuvent varier), installer/configurer le fournisseur **GitHub**, puis y saisir le Client ID et le Client secret. Le service OAuth Netlify conserve le secret côté serveur. Ne pas le créer comme variable accessible dans JavaScript. Si cette option n’est pas disponible pour votre compte, arrêter cette étape et signaler le libellé ou message affiché : un autre fournisseur OAuth sécurisé sera nécessaire. Ne pas remplacer par un jeton dans le code.
+8. Après le déploiement de cette version, ouvrir `/admin/`, sélectionner **Se connecter avec GitHub**, autoriser l’application OAuth et utiliser le compte propriétaire ou un collaborateur ayant le droit d’écriture sur le dépôt. La portée OAuth `repo` est celle utilisée par ce backend pour les dépôts privés : lire les permissions présentées par GitHub avant d’autoriser.
+9. Faire la première modification de texte, enregistrer/publier, vérifier le commit GitHub puis attendre le déploiement Netlify réussi. Recharger ensuite la page publique. Ce test réel nécessite votre connexion : il n’a pas été effectué par Codex.
+
+## Utilisation sans code
+
+Dans **Gérer le site** :
+
+- **Entreprise, contacts, logo et réalisations** : modifier nom, localisation, villes, téléphone, e-mail, numéro WhatsApp, message automatique et libellé des boutons. Le numéro WhatsApp doit comporter les chiffres internationaux sans `+` ni espaces. Garder `{service}` dans le message pour y insérer le service sélectionné. Le formulaire ajoute toujours les informations du visiteur.
+- **Textes, services, équipements et agents** : éditer les présentations de l’accueil et de l’entreprise, les valeurs, les services et leurs prix, ajouter des équipements, publier des photos des agents. Les listes se réordonnent ; le menu de chaque élément permet de le supprimer. Dans **Titres, introductions et référencement des pages**, choisir la page à modifier et renseigner les champs souhaités. Éviter deux entrées pour la même page.
+- Les prix sont du texte (ex. `Sur devis` ou un montant réel avec devise). Aucun prix n’est inventé. Les devis restent soumis à confirmation par l’entreprise.
+- Sur un champ image, choisir/téléverser le fichier officiel depuis le téléphone ou l’ordinateur. Les photos restent dans `public/images/` et le dépôt GitHub. Préférer des noms simples sans accents, des JPG/PNG/WebP/AVIF et des fichiers de moins de 5 Mo (idéalement 150 à 400 Ko). Les formats SVG, PDF, HEIC et les vidéos ne sont pas pris en charge par le site.
+- Pour retirer une photo : enlever d’abord sa référence du contenu, enregistrer/publier, puis supprimer le fichier inutilisé de la médiathèque. Supprimer un fichier encore utilisé provoque une erreur de construction et empêche la nouvelle version d’être publiée.
+- Ne pas téléverser des documents privés ou confidentiels : les médias du site sont publics. Aucun traitement génératif ne modifie les visages, uniformes ou logos.
+
+Sur téléphone, les rubriques longues peuvent nécessiter du défilement ; fermer l’aperçu si proposé. Les champs sont organisés par groupes et listes repliables.
+
+## Ajouter votre logo et vos photos
+
+Les fichiers images envoyés dans le chat n’ont pas été retrouvés dans l’espace de travail : ils ne sont toujours pas intégrés. Une fois connecté, le propriétaire peut les ajouter directement depuis son appareil : logo dans **Logo officiel**, photo de face dans **Photographie principale**, seconde photo dans **Seconde photographie**, autres photos dans **Photographies de nos agents**. Réserver **Réalisations** aux installations réellement réalisées et identifiées.
+
+## Sécurité et maintenance
+
+Activer la double authentification GitHub, utiliser des comptes nominatifs et n’accorder le droit d’écriture qu’aux gestionnaires de confiance. Révoquer un ancien collaborateur dans les permissions GitHub et révoquer son autorisation OAuth si nécessaire. Se déconnecter après utilisation d’un appareil partagé. Le backend conserve la session côté navigateur ; ne pas l’utiliser sur un appareil non fiable. Ne jamais placer un secret dans les contenus.
+
+Les scripts Decap sont servis localement, à version fixe, avec licences et inventaire SHA-256 dans `public/admin/vendor/`. Les vérifications de certificats et l’intégrité npm ont été conservées lors de leur récupération. La CSP publique reste stricte ; seule `/admin/*` autorise les styles intégrés et l’évaluation de code nécessaires au validateur Decap ainsi que les connexions GitHub/Netlify. Ne pas charger de scripts tiers supplémentaires dans cet espace. Prévoir des mises à jour régulières du CMS avec nouveaux tests.
+
+Pour restaurer un contenu, utiliser l’historique du fichier dans GitHub et créer une modification inverse. Un retour arrière du déploiement Netlify seul ne restaure pas la source du dépôt ; le déploiement suivant reprend le contenu de `main`.
+
+## Vérifications et limites
+
+Les tests locaux vérifient le chargement de l’administration, la configuration du backend, l’absence de backend local, la propagation de contenus et images après reconstruction, l’échappement HTML, la suppression et les pages publiques. Ces contrôles ne prouvent pas une connexion OAuth réelle, un droit d’écriture GitHub, un commit depuis le CMS ni un redéploiement Netlify. Ces quatre opérations restent à tester après activation dans les comptes du propriétaire. Aucun mot de passe provisoire n’est fourni.

@@ -1,0 +1,71 @@
+{
+  "home": {
+    "heading": "La technique au service de votre tranquillité.",
+    "intro": "Équipements, sécurité et solutions techniques pour les particuliers, les entreprises et les installations industrielles.",
+    "servicesHeading": "Des solutions concrètes. Pour vos besoins essentiels.",
+    "servicesIntro": "Protéger vos espaces, suivre vos véhicules, éclairer vos extérieurs : découvrez nos domaines d’intervention.",
+    "aboutHeading": "Comprendre votre besoin. Construire la bonne solution.",
+    "aboutIntro": "Basée à Lubumbashi, notre entreprise propose des équipements et des solutions techniques modernes, fiables et adaptés à chaque projet."
+  },
+  "about": {
+    "heading": "La proximité. La technique. La confiance.",
+    "intro": "SILOE TRADING EQUIPMENT accompagne les particuliers, commerces, entreprises et installations industrielles dans leurs besoins en équipements et solutions techniques.",
+    "missionHeading": "Ancrés à Lubumbashi. Tournés vers vos projets.",
+    "mission": "Notre mission est d’apporter des solutions modernes, fiables et adaptées aux besoins de nos clients.",
+    "values": [
+      {
+        "title": "Écoute",
+        "description": "Comprendre l’usage, les contraintes et les besoins de chaque client."
+      },
+      {
+        "title": "Fiabilité",
+        "description": "Privilégier des solutions techniques adaptées au contexte de chaque projet."
+      },
+      {
+        "title": "Clarté",
+        "description": "Échanger sur les équipements et les prestations avant de définir une proposition."
+      }
+    ]
+  },
+  "services": [
+    {
+      "title": "Systèmes d’alerte et de sécurité",
+      "description": "Sirènes d’alerte, gyrophares, boutons de déclenchement et dispositifs de sécurité pour votre maison, commerce ou entreprise.",
+      "image": "",
+      "price": ""
+    },
+    {
+      "title": "Caméras de surveillance",
+      "description": "Fourniture et installation de caméras Wi-Fi, solaires et de solutions de vidéosurveillance adaptées à vos espaces.",
+      "image": "",
+      "price": ""
+    },
+    {
+      "title": "GPS pour véhicules",
+      "description": "Installation de dispositifs GPS pour la géolocalisation et le suivi de vos véhicules.",
+      "image": "",
+      "price": ""
+    },
+    {
+      "title": "Clôtures électriques",
+      "description": "Fourniture et installation de clôtures électriques pour renforcer la protection de votre propriété.",
+      "image": "",
+      "price": ""
+    },
+    {
+      "title": "Lampadaires solaires",
+      "description": "Des solutions d’éclairage solaire pour les résidences, entreprises et espaces extérieurs.",
+      "image": "",
+      "price": ""
+    },
+    {
+      "title": "Équipements techniques",
+      "description": "Équipements et matériels disponibles sur demande, selon les besoins de votre projet.",
+      "image": "",
+      "price": ""
+    }
+  ],
+  "equipment": [],
+  "agents": [],
+  "pages": []
+}

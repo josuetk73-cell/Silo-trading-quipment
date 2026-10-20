@@ -1,8 +1,8 @@
 # SILOE TRADING EQUIPMENT
 
-Site en français, généré en HTML/CSS/JavaScript avec Node.js 22 ou supérieur (validé avec Node 24). Architecture statique sans dépendance de production : chargement léger, pages directement lisibles par les moteurs de recherche et hébergement simple. Aucun compte, base de données ou secret nécessaire pour construire le site.
+Site vitrine français à six pages, confidentialité et administration Decap CMS. Node.js 22 ou supérieur, validé avec Node 24. Génération HTML/CSS/JavaScript statique, compatible Netlify. Les visiteurs demandent des devis par WhatsApp ou e-mail ; aucun paiement ni gestion de stock n’est implémenté.
 
-## Développement
+## Démarrage
 
 Depuis `/workspace/Silo-trading-quipment` :
 
@@ -12,44 +12,38 @@ npm test
 npm run dev
 ```
 
-Le serveur utilise le port 3000 (ou `PORT`). Relancer après modification des fichiers sources. Les fichiers publiables sont dans `dist/`. Ne pas modifier directement ce répertoire généré.
+Le serveur utilise le port 3000 (ou `PORT`). Relancer après modification. Les fichiers publiables sont dans `dist/`, généré à chaque construction ; ne pas modifier directement ce dossier. Aucune installation npm n’est nécessaire à la construction : le CMS est servi depuis les fichiers de la distribution officielle Decap 3.17.1 conservés sous `public/admin/vendor/` avec leurs licences et inventaire SHA-256. Les scripts d’administration ne sont chargés que sur `/admin/`.
 
-## Coordonnées et photographies
+## Administration sans code
 
-Modifier `src/company.json` :
+Lire [ADMINISTRATION.md](ADMINISTRATION.md) : activation OAuth GitHub dans Netlify, première connexion, ajout d’images, gestion des contenus et publication. L’administration utilise le compte GitHub du gestionnaire et ses permissions sur `josuetk73-cell/Silo-trading-quipment`. Aucune connexion par mot de passe local, aucun accès anonyme et aucun secret dans le code. Chaque publication crée un commit ; Netlify doit être connecté à `main` pour reconstruire automatiquement. La connexion réelle et les sauvegardes depuis le CMS nécessitent l’activation OAuth par le propriétaire.
 
-- `whatsapp` : numéro international, chiffres seulement, sans `+`, espaces ou tirets.
-- `phone` : numéro d’appel réel avec indicatif international.
-- `email` : adresse professionnelle réelle.
-- `url` : origine HTTPS publique définitive, sans chemin, après attribution par l’hébergeur. Sans ce champ, l’indexation est désactivée et aucun domaine n’est inventé.
-- `logo` : `/images/logo-officiel.webp` une fois le fichier ajouté.
-- `teamPhoto` et `teamBackPhoto` : chemins des photographies officielles ajoutées sous `public/images/`.
-- `projects` : liste de réalisations réelles au format `{"title":"Description exacte", "image":"/images/installation.webp"}`. Ajouter uniquement des réalisations confirmées.
+Dans l’interface, **Entreprise, contacts, logo et réalisations** gère les coordonnées et images principales ; **Textes, services, équipements et agents** gère les textes, prestations, prix et galeries. Les images envoyées dans le chat restent absentes du dépôt : le propriétaire peut désormais les téléverser directement dans l’administration après son activation. Aucun faux logo ou projet n’est ajouté.
 
-Les images partagées dans la conversation ont été examinées visuellement mais ne sont pas encore accessibles sous forme de fichiers dans ce checkout. Les emplacements actuels sont des blocs typographiques, sans faux logo ni photographie de remplacement. Ajouter les originaux avant publication. Conserver les originaux hors de `public/`, exporter des copies WebP de 960 à 1400 pixels de large, sans retouche de visage, uniforme ou logo. Préserver le ratio et vérifier le cadrage sur mobile. Aucun outil génératif n’est nécessaire.
+## Sources et configuration
 
-Les services et textes des pages se modifient dans `scripts/build.mjs`, le style dans `public/style.css`, les interactions dans `public/app.js`. Les boutons WhatsApp des services adaptent le message automatiquement dès que le numéro est configuré.
+- `src/company.json` : nom, contacts, message et boutons WhatsApp, logo, photos principales, villes et réalisations.
+- `src/content.json` : présentations, valeurs, services, équipements, photos des agents et titres/introductions/SEO des pages.
+- `public/images/` : images publiques téléversées. JPG, PNG, WebP et AVIF, noms simples et moins de 5 Mo ; optimiser de préférence les copies avant téléversement, sans retouche de visage ou uniforme. Conserver les originaux sur votre appareil.
+- `scripts/build.mjs` : génération des pages ; les textes saisis sont échappés en HTML, les chemins images sont validés, les fichiers manquants bloquent la construction.
+- `public/style.css` et `public/app.js` : présentation et interactions publiques.
+- `public/admin/config.json` : champs éditoriaux et backend GitHub, sans secret.
+- `netlify.toml` et `public/_headers` : construction et en-têtes de sécurité ; la CSP plus permissive nécessaire au CMS est limitée à `/admin/*`.
 
-## Formulaires
+WhatsApp : chiffres internationaux sans `+` ni espaces. Le texte `{service}` est remplacé par le service choisi dans le message configuré. Les prix sont du texte avec devise précisée par l’entreprise. Aucun montant n’est prédéfini.
 
-Les formulaires valident les champs puis préparent un message dans WhatsApp ou l’application e-mail du visiteur. L’utilisateur confirme l’envoi dans cette application. Ils ne prétendent jamais qu’un message a été livré et ne stockent pas de données sur le site. Un client e-mail installé est nécessaire pour `mailto:`. Les boutons sont désactivés si les coordonnées correspondantes ne sont pas renseignées. Pour une réception automatique depuis le site, il faudra connecter un prestataire de formulaires ou une API sécurisée et adapter la notice de confidentialité ; cette intégration n’est pas configurée.
+## Formulaires et données
 
-## Déployer sur Netlify
+Les formulaires valident les champs puis préparent un message dans WhatsApp ou l’application e-mail du visiteur. L’utilisateur confirme l’envoi ; aucune livraison automatique n’est annoncée ni aucun message stocké sur le site. `mailto:` nécessite une application e-mail configurée. Pour une réception automatique côté serveur, une intégration supplémentaire serait nécessaire, avec adaptation de la notice de confidentialité.
 
-1. Renseigner les coordonnées, intégrer les photos, vérifier les contenus et compléter la notice de confidentialité selon les pratiques réelles de l’entreprise.
-2. Exécuter `npm run build` puis `npm test`.
-3. Dans votre compte Netlify, importer ce dépôt Git (après avoir envoyé le code sur GitHub), ou déposer le dossier `dist` via le déploiement manuel Netlify. `netlify.toml` définit la commande de construction, le dossier public et les en-têtes de sécurité pour un déploiement connecté au dépôt. Pour un dépôt manuel, reprendre également ces en-têtes dans les paramètres de l’hébergeur.
-4. Récupérer l’URL HTTPS attribuée, l’inscrire dans `src/company.json` (`url`), reconstruire et redéployer. Cela active les URL canoniques, le sitemap et l’indexation.
-5. Vérifier l’URL publique et toutes les pages, les contacts et l’envoi réel des demandes avant annonce officielle.
+## Déploiement et domaine
 
-Alternative Vercel : importer le dépôt comme projet « Other », commande `npm run build`, dossier de sortie `dist`. Configurer les mêmes en-têtes de sécurité depuis `netlify.toml` dans la configuration Vercel. Aucun déploiement n’a encore été effectué et aucune URL publique n’est fournie par ce projet local.
+Netlify : connecter le dépôt GitHub, branche `main`, commande `npm run build`, dossier `dist`, Node 24. Voir [PUBLICATION.md](PUBLICATION.md). Le propriétaire indique l’adresse `https://siloetradingequipment.netlify.app` ; elle est configurée pour les liens canoniques et le sitemap, mais la vérification publique depuis Codex est bloquée par le proxy réseau. Ne pas confondre construction locale, envoi GitHub et déploiement Netlify réussi.
 
-## Nom de domaine et Google
+Un dépôt manuel de `dist` permet de consulter le site, mais ne permet pas les mises à jour automatiques du CMS : utiliser la connexion GitHub. Chaque changement publié dans l’admin apparaît après un nouveau déploiement réussi. Vérifier les journaux Netlify en cas d’erreur.
 
-Ajouter votre domaine dans les paramètres du site chez l’hébergeur. Chez votre bureau d’enregistrement, appliquer exactement les enregistrements DNS affichés par celui-ci ; ne pas remplacer les enregistrements e-mail MX/TXT. Attendre la validation DNS et le certificat HTTPS, choisir la version principale (avec ou sans www), puis renseigner cette origine dans `url` et redéployer. Lier les variantes par redirection dans l’hébergement.
+Pour un domaine personnalisé, l’ajouter dans Netlify, appliquer les DNS exactement indiqués sans effacer les enregistrements de messagerie, attendre le certificat HTTPS, puis modifier `url` dans les réglages du CMS. Ne jamais inventer un domaine. Le sitemap est `/sitemap.xml` ; l’administration en est exclue. Google Search Console peut servir à demander l’indexation, sans garantie de classement.
 
-Créer une propriété Google Search Console pour le domaine, suivre la vérification DNS et soumettre `/sitemap.xml`. Les titres, descriptions et contenus locaux sont présents ; l’indexation et le classement ne sont pas garantis.
+## Tests
 
-## État de livraison
-
-Code développé : six pages métier, confidentialité, navigation mobile, formulaires, SEO conditionnel et configuration Netlify. Coordonnées configurées : WhatsApp et appels +243 85 811 02 05 ; e-mail siloeebbuilding@gmail.com. Restent indispensables : fichiers images accessibles, choix/accès hébergement et vérification du déploiement public. Ne jamais publier de clés ou mots de passe dans le dépôt.
+`npm test` vérifie les liens, services et contacts, les règles d’accès configurées, puis reconstruit une copie temporaire avec ajouts/modifications/suppressions de contenus, prix et images pour vérifier leur propagation, l’échappement HTML et l’échec sur image manquante. Les vérifications Chromium locales couvrent les pages publiques sur trois tailles d’écran, les formulaires et l’écran de connexion CMS avec sa CSP. Aucun test local ne prouve l’autorisation OAuth réelle ou la réception d’un message externe. Le premier enregistrement authentifié et le redéploiement doivent être vérifiés avec le propriétaire.

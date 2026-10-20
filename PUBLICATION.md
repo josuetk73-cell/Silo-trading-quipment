@@ -1,5 +1,7 @@
 # Publication gratuite sur Netlify
 
+**Pour l’administration, utiliser le déploiement automatique depuis GitHub** : dépôt `josuetk73-cell/Silo-trading-quipment`, branche `main`, commande `npm run build`, dossier `dist`. Lire `ADMINISTRATION.md` pour activer la connexion OAuth. Un ZIP déployé manuellement ne suffit pas pour publier automatiquement les changements du CMS.
+
 Le site est statique : aucun serveur payant ni base de données n’est nécessaire. Le forfait gratuit de Netlify est soumis à ses limites d’utilisation et conditions en vigueur ; vérifier celles-ci lors de l’inscription.
 
 ## Avant la publication finale
@@ -22,7 +24,7 @@ Le logo et les photos partagés dans la conversation restent à intégrer depuis
 4. Attendre la fin du déploiement, puis ouvrir l’URL HTTPS attribuée par Netlify. Le nom exact est attribué par la plateforme et n’est pas connu à l’avance.
 5. Me transmettre uniquement cette URL publique. Je pourrai alors la renseigner dans la configuration du site, générer les URL canoniques et le sitemap, activer l’indexation et vérifier l’adresse si elle est accessible depuis cet environnement. Redéposer ensuite le dossier `dist` mis à jour dans le même site Netlify.
 
-Le premier dépôt est une version de préparation : sans URL configurée dans le code, les moteurs sont priés de ne pas l’indexer. Cela ne rend pas le site privé ; son URL reste accessible aux personnes qui la connaissent.
+L’adresse fournie par le propriétaire est désormais renseignée dans la configuration : les liens canoniques, le sitemap et l’indexation sont activés pour cette adresse. Cela ne rend pas le site privé ; son URL reste accessible aux personnes qui la connaissent.
 
 ## Vérifications après déploiement
 
@@ -34,4 +36,4 @@ L’adresse Netlify suffit pour partager le site. Plus tard, acheter votre domai
 
 ## Modifications
 
-Les textes et services sont dans `scripts/build.mjs`, les coordonnées et chemins des images dans `src/company.json`, la présentation dans `public/style.css`. Exécuter `npm run build` et `npm test`, puis déposer le nouveau `dist` dans le même projet Netlify. Le README décrit aussi le déploiement automatique depuis un dépôt GitHub.
+Après activation OAuth, modifier les contenus dans `/admin/`, sans code : les textes/services sont conservés dans `src/content.json`, les coordonnées et chemins d’images dans `src/company.json`. La présentation technique reste dans `public/style.css`. Exécuter `npm run build` et `npm test`, puis déposer le nouveau `dist` dans le même projet Netlify. Le README décrit aussi le déploiement automatique depuis un dépôt GitHub.

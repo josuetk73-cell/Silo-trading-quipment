@@ -1,0 +1,461 @@
+{
+  "backend": {
+    "name": "github",
+    "repo": "josuetk73-cell/Silo-trading-quipment",
+    "branch": "main",
+    "base_url": "https://api.netlify.com",
+    "auth_endpoint": "auth",
+    "auth_scope": "repo",
+    "open_authoring": false,
+    "commit_messages": {
+      "update": "Contenu : {{collection}} — {{slug}}",
+      "uploadMedia": "Image : ajout {{path}}",
+      "deleteMedia": "Image : suppression {{path}}"
+    }
+  },
+  "locale": "fr",
+  "media_folder": "public/images",
+  "public_folder": "/images",
+  "slug": {
+    "encoding": "ascii",
+    "clean_accents": true,
+    "sanitize_replacement": "-"
+  },
+  "editor": {
+    "preview": false
+  },
+  "collections": [
+    {
+      "name": "site",
+      "label": "Gérer le site",
+      "files": [
+        {
+          "name": "company",
+          "label": "Entreprise, contacts, logo et réalisations",
+          "file": "src/company.json",
+          "format": "json",
+          "fields": [
+            {
+              "name": "name",
+              "label": "Nom de l’entreprise",
+              "widget": "string",
+              "required": true
+            },
+            {
+              "name": "whatsapp",
+              "label": "WhatsApp (chiffres internationaux sans +)",
+              "widget": "string",
+              "required": false,
+              "pattern": [
+                "^[1-9][0-9]{7,14}$",
+                "Exemple : 243858110205"
+              ]
+            },
+            {
+              "name": "phone",
+              "label": "Téléphone avec indicatif",
+              "widget": "string",
+              "required": false
+            },
+            {
+              "name": "email",
+              "label": "Adresse e-mail",
+              "widget": "string",
+              "required": false
+            },
+            {
+              "name": "url",
+              "label": "Adresse HTTPS publique du site",
+              "widget": "string",
+              "required": false
+            },
+            {
+              "name": "logo",
+              "label": "Logo officiel",
+              "widget": "image",
+              "required": false,
+              "allow_multiple": false,
+              "media_library": {
+                "config": {
+                  "max_file_size": 5000000
+                }
+              }
+            },
+            {
+              "name": "teamPhoto",
+              "label": "Photographie principale de l’équipe",
+              "widget": "image",
+              "required": false,
+              "allow_multiple": false,
+              "media_library": {
+                "config": {
+                  "max_file_size": 5000000
+                }
+              }
+            },
+            {
+              "name": "teamBackPhoto",
+              "label": "Seconde photographie de l’équipe",
+              "widget": "image",
+              "required": false,
+              "allow_multiple": false,
+              "media_library": {
+                "config": {
+                  "max_file_size": 5000000
+                }
+              }
+            },
+            {
+              "name": "whatsappMessage",
+              "label": "Message WhatsApp — conserver {service} pour le service choisi",
+              "widget": "text",
+              "required": true
+            },
+            {
+              "name": "whatsappButton",
+              "label": "Texte des boutons WhatsApp",
+              "widget": "string",
+              "required": true
+            },
+            {
+              "name": "tagline",
+              "label": "Signature de l’entreprise",
+              "widget": "text",
+              "required": true
+            },
+            {
+              "name": "location",
+              "label": "Localisation principale",
+              "widget": "string",
+              "required": true
+            },
+            {
+              "name": "cities",
+              "label": "Villes d’intervention",
+              "widget": "list",
+              "required": true
+            },
+            {
+              "name": "projects",
+              "label": "Réalisations (photographies réelles)",
+              "widget": "list",
+              "required": false,
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Titre / légende",
+                  "widget": "string",
+                  "required": true
+                },
+                {
+                  "name": "image",
+                  "label": "Photographie",
+                  "widget": "image",
+                  "required": false,
+                  "allow_multiple": false,
+                  "media_library": {
+                    "config": {
+                      "max_file_size": 5000000
+                    }
+                  }
+                }
+              ],
+              "summary": "{{fields.title}}",
+              "collapsed": true
+            }
+          ]
+        },
+        {
+          "name": "content",
+          "label": "Textes, services, équipements et agents",
+          "file": "src/content.json",
+          "format": "json",
+          "fields": [
+            {
+              "name": "home",
+              "label": "Accueil",
+              "widget": "object",
+              "required": true,
+              "fields": [
+                {
+                  "name": "heading",
+                  "label": "Grand titre",
+                  "widget": "text",
+                  "required": true
+                },
+                {
+                  "name": "intro",
+                  "label": "Présentation",
+                  "widget": "text",
+                  "required": true
+                },
+                {
+                  "name": "servicesHeading",
+                  "label": "Titre des services",
+                  "widget": "text",
+                  "required": true
+                },
+                {
+                  "name": "servicesIntro",
+                  "label": "Présentation des services",
+                  "widget": "text",
+                  "required": true
+                },
+                {
+                  "name": "aboutHeading",
+                  "label": "Titre de l’entreprise",
+                  "widget": "text",
+                  "required": true
+                },
+                {
+                  "name": "aboutIntro",
+                  "label": "Présentation de l’entreprise",
+                  "widget": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "about",
+              "label": "À propos",
+              "widget": "object",
+              "required": true,
+              "fields": [
+                {
+                  "name": "heading",
+                  "label": "Grand titre",
+                  "widget": "text",
+                  "required": true
+                },
+                {
+                  "name": "intro",
+                  "label": "Présentation",
+                  "widget": "text",
+                  "required": true
+                },
+                {
+                  "name": "missionHeading",
+                  "label": "Titre de la mission",
+                  "widget": "text",
+                  "required": true
+                },
+                {
+                  "name": "mission",
+                  "label": "Notre mission",
+                  "widget": "text",
+                  "required": true
+                },
+                {
+                  "name": "values",
+                  "label": "Valeurs",
+                  "widget": "list",
+                  "required": false,
+                  "fields": [
+                    {
+                      "name": "title",
+                      "label": "Titre",
+                      "widget": "string",
+                      "required": true
+                    },
+                    {
+                      "name": "description",
+                      "label": "Texte",
+                      "widget": "text",
+                      "required": true
+                    }
+                  ],
+                  "summary": "{{fields.title}}",
+                  "collapsed": true
+                }
+              ]
+            },
+            {
+              "name": "services",
+              "label": "Services — ajouter, modifier, supprimer ou réordonner",
+              "widget": "list",
+              "required": false,
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Nom",
+                  "widget": "string",
+                  "required": true
+                },
+                {
+                  "name": "description",
+                  "label": "Description",
+                  "widget": "text",
+                  "required": true
+                },
+                {
+                  "name": "image",
+                  "label": "Photographie",
+                  "widget": "image",
+                  "required": false,
+                  "allow_multiple": false,
+                  "media_library": {
+                    "config": {
+                      "max_file_size": 5000000
+                    }
+                  }
+                },
+                {
+                  "name": "price",
+                  "label": "Prix affiché (ex. Sur devis ou 100 USD)",
+                  "widget": "string",
+                  "required": false
+                }
+              ],
+              "summary": "{{fields.title}}",
+              "collapsed": true
+            },
+            {
+              "name": "equipment",
+              "label": "Équipements et prix",
+              "widget": "list",
+              "required": false,
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Nom",
+                  "widget": "string",
+                  "required": true
+                },
+                {
+                  "name": "description",
+                  "label": "Description",
+                  "widget": "text",
+                  "required": true
+                },
+                {
+                  "name": "image",
+                  "label": "Photographie",
+                  "widget": "image",
+                  "required": false,
+                  "allow_multiple": false,
+                  "media_library": {
+                    "config": {
+                      "max_file_size": 5000000
+                    }
+                  }
+                },
+                {
+                  "name": "price",
+                  "label": "Prix affiché (ex. Sur devis ou 100 USD)",
+                  "widget": "string",
+                  "required": false
+                }
+              ],
+              "summary": "{{fields.title}}",
+              "collapsed": true
+            },
+            {
+              "name": "agents",
+              "label": "Photographies de nos agents",
+              "widget": "list",
+              "required": false,
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Légende",
+                  "widget": "string",
+                  "required": true
+                },
+                {
+                  "name": "description",
+                  "label": "Présentation",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "name": "image",
+                  "label": "Photographie",
+                  "widget": "image",
+                  "required": false,
+                  "allow_multiple": false,
+                  "media_library": {
+                    "config": {
+                      "max_file_size": 5000000
+                    }
+                  }
+                }
+              ],
+              "summary": "{{fields.title}}",
+              "collapsed": true
+            },
+            {
+              "name": "pages",
+              "label": "Titres, introductions et référencement des pages",
+              "widget": "list",
+              "required": false,
+              "fields": [
+                {
+                  "name": "slug",
+                  "label": "Page",
+                  "widget": "select",
+                  "required": true,
+                  "options": [
+                    {
+                      "label": "Accueil",
+                      "value": ""
+                    },
+                    {
+                      "label": "À propos",
+                      "value": "a-propos"
+                    },
+                    {
+                      "label": "Services",
+                      "value": "services"
+                    },
+                    {
+                      "label": "Réalisations",
+                      "value": "realisations"
+                    },
+                    {
+                      "label": "Devis",
+                      "value": "devis"
+                    },
+                    {
+                      "label": "Contact",
+                      "value": "contact"
+                    },
+                    {
+                      "label": "Confidentialité",
+                      "value": "confidentialite"
+                    }
+                  ]
+                },
+                {
+                  "name": "title",
+                  "label": "Titre Google",
+                  "widget": "string",
+                  "required": false
+                },
+                {
+                  "name": "description",
+                  "label": "Description Google",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "name": "heading",
+                  "label": "Titre principal affiché",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "name": "intro",
+                  "label": "Introduction affichée",
+                  "widget": "text",
+                  "required": false
+                }
+              ],
+              "summary": "{{fields.title}}",
+              "collapsed": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

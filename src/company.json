@@ -3,9 +3,19 @@
   "whatsapp": "243858110205",
   "phone": "+243858110205",
   "email": "siloeebbuilding@gmail.com",
-  "url": "",
+  "url": "https://siloetradingequipment.netlify.app",
   "logo": "",
   "teamPhoto": "",
   "teamBackPhoto": "",
-  "projects": []
+  "projects": [],
+  "whatsappMessage": "Bonjour SILOE TRADING EQUIPMENT, je viens de consulter votre site internet et je souhaite obtenir des informations concernant {service}.",
+  "whatsappButton": "Demander un devis sur WhatsApp",
+  "tagline": "Des solutions modernes.\nUne présence locale.",
+  "location": "Lubumbashi, République démocratique du Congo",
+  "cities": [
+    "Lubumbashi",
+    "Kolwezi",
+    "Likasi",
+    "Kasumbalesa"
+  ]
 }

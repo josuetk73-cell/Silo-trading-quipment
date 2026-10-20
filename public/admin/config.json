@@ -397,7 +397,7 @@
                   "options": [
                     {
                       "label": "Accueil",
-                      "value": ""
+                      "value": "accueil"
                     },
                     {
                       "label": "À propos",

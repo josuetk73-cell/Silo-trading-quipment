@@ -3,6 +3,7 @@ import path from 'node:path';
 export const company=JSON.parse(await readFile(new URL('../src/company.json',import.meta.url),'utf8'));
 export const content=JSON.parse(await readFile(new URL('../src/content.json',import.meta.url),'utf8'));
 for(const key of ['services','equipment','agents','pages'])content[key]??=[];
+content.about.values??=[];
 company.projects??=[];
 company.cities??=[];
 company.whatsappMessage??='Bonjour, je souhaite des informations concernant {service}.';
@@ -40,7 +41,7 @@ const pages={
 'confidentialite':{title:'Confidentialité',description:'Informations sur les données transmises à SILOE TRADING EQUIPMENT.',body:`<section class="page-intro"><h1>Confidentialité</h1><p>Les formulaires préparent un message contenant les informations que vous renseignez : nom, entreprise, e-mail, téléphone et description du besoin. Aucun message n’est envoyé automatiquement ni enregistré par ce site.</p><p>En choisissant WhatsApp ou e-mail, vous transmettez ces informations via le service concerné après confirmation. Les règles de confidentialité de votre fournisseur de messagerie ou de WhatsApp s’appliquent.</p><p>Le site n’utilise aucun outil publicitaire, de mesure d’audience ni cookie applicatif. L’hébergeur peut traiter des journaux techniques nécessaires au fonctionnement et à la sécurité du site.</p><p>Pour toute question concernant vos données, utilisez les coordonnées disponibles sur la page Contact. Cette notice devra être complétée avec les coordonnées définitives et les pratiques de conservation avant publication.</p></section>`}
 };
 for(const override of content.pages){
- const page=pages[override.slug];
+ const page=pages[override.slug==='accueil'?'':override.slug];
  if(!page)throw Error('Page inconnue : '+override.slug);
  if(override.title)page.title=override.title;
  if(override.description)page.description=override.description;

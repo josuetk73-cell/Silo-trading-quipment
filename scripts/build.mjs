@@ -1,5 +1,7 @@
 import {readFile,writeFile,mkdir,cp,access,rm} from 'node:fs/promises';
 import path from 'node:path';
+await mkdir(new URL('../dist/images/', import.meta.url), { recursive: true });
+await cp(new URL('../images/', import.meta.url), new URL('../dist/images/', import.meta.url), { recursive: true });
 export const company=JSON.parse(await readFile(new URL('../src/company.json',import.meta.url),'utf8'));
 export const content=JSON.parse(await readFile(new URL('../src/content.json',import.meta.url),'utf8'));
 for(const key of ['services','equipment','agents','pages'])content[key]??=[];
